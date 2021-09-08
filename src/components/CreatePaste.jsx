@@ -2,38 +2,37 @@ import React, { useState } from "react";
 
 
 function CreatePaste(props){
-    const [paste, setPaste] = useState({
-        content: ""
-    });
 
-    function handleChange(event){
-        const { name, value } = event.target;
+    const [data, setData] = useState({
+        content:"",
+    })
 
-        setPaste(prevPaste =>{
-          return {
-            ...prevPaste,
-            [name]: value
-          };
-        });
+    function handleClick() {
+        console.log("i am l");
+        console.log(data);
     }
 
-    function submitPaste(event){
-        props.onAdd(paste);
-        setPaste({
-            content: ""
+    function updateContentText(event) {
+        console.log('content', event.target.value)
+        setData(prevPaste => {
+            return {
+                ...prevPaste,
+                content: event.target.value
+            };
         });
     }
+    
+    
 
     return (
         <div>
-            <textarea 
+            <textarea onChange={updateContentText}
               name="content"
-              onChange={handleChange}
-              value={paste.content}
               placeholder="Paste here..."
               rows="20"
+              
             />
-            <button onClick={submitPaste}>Create a Paste</button>
+            <button onClick={handleClick}>Create a Paste</button>
         </div>
     );
 }
