@@ -1,41 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import Paste from "./Paste";
 import Signin from "./Signin";
 import Register from "./Register";
+import Homepage from "./Homepage";
+import CreatePaste from "./CreatePaste";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+
 
 function App() {
+  const [pastes,setPastes] = useState([]);
+
+  function addPaste(newPaste){
+    setPastes(prevPastes => {
+      return [...prevPastes, newPaste];
+    });
+  }
+
+  function deletePaste(id){
+    setPastes(prevPastes => {
+      return prevPastes.filter((pasteItem, index) => {
+        return index !== id;
+      });
+    });
+  }
     return (
-        <div>
         <Router>
           <div>
-          <Route path="/home" component={Homepage} />
+          <CreatePaste onAdd={addPaste} />
+          {pastes.map((pasteItem, index) =>{
+            return(
+              <Paste 
+              key={index}
+              id={index}
+              content={pasteItem.content}
+              onDelete={deletePaste}
+              />
+
+            );
+          })}
+          <Route path="/homepage" component={Homepage} />
           <Route path="/paste" component={Paste} />
           <Route path="/signin" component={Signin} />
           <Route path="/register" component={Register} />
           </div>
         </Router>
-        </div>
+       
       
     );
   }
   
-  function Homepage() {
-    function addPaste(paste){
   
-    }
-    return (
-          <div>
-          <h1>This is homepage</h1>
-          <Link to='/paste'><h1>Create Paste</h1></Link>
-          <Link to='/signin'><h1>Signin</h1></Link>
-          <Link to='/register'><h1>Register</h1></Link>
-          
-          </div>
-    );
-  }
-  
+ 
   
   export default App;
-  export {Homepage};
+ 
