@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import { useHistory } from "react-router-dom";
+import {Button} from '@material-ui/core'
+const userService = require('../services/user');
 
 function Signin() {
 
@@ -8,9 +10,26 @@ function Signin() {
         password: ""
     })
 
-    function handleClick() {
-        console.log("i am l");
-        console.log(data);
+    const history = useHistory();
+
+    async function handleClick() {
+        
+        const user = {
+            email: data.email,
+            password: data.password
+            
+        };
+        const signInRes = await userService.login(user);
+
+
+        if (signInRes == true) {
+            console.log('Created success');
+            // to do:redirect to create paste page
+            return true;
+        } else {
+            console.log('Create failed');
+        }
+       return false;
     }
 
     function updateEmailText(event) {
@@ -34,9 +53,11 @@ function Signin() {
     }
     return (
         <div className="container">
+        <form>
             <input type="text" onChange={updateEmailText} placeholder="Email" />
             <input type="password" onChange={updatePwdText} placeholder="Password" />
-            <button onClick={handleClick} type="submit">Signin</button>
+            <Button onClick={handleClick} color="primary">Signin</Button>
+            </form>
             <br />
             <label>New to Pasteit? -> </label>
             <a href="./register">Register</a>
