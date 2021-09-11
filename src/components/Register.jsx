@@ -1,8 +1,8 @@
 import React, { useState } from 'react'; 
 import { Button, Link } from '@material-ui/core'
+import { useHistory } from "react-router-dom";
 
 const userService = require('../services/user');
-
 
 function Register() {
     const [data, setData] = useState({
@@ -11,7 +11,7 @@ function Register() {
         password: "",
         comfirmPassword: ""
     })
-
+    const history = useHistory();
     async function handleClick() {
         
         const user = {
@@ -21,13 +21,10 @@ function Register() {
             status: 'ACTIVE'
         };
         const createRes = await userService.createUser(user);
-        console.log("createRes: " + createRes);
-
         if (createRes == true) {
             
             console.log('Created success');
-            
-            // to do: redirect to signin page;
+            history.push("/signin");
         } else {
             console.log('Create failed');
         }
