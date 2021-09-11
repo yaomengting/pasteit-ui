@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import {Button, TextField} from "@material-ui/core"
+const userService = require('../services/paste');
 
 function CreatePaste(props){
 
@@ -7,9 +8,20 @@ function CreatePaste(props){
         content:"",
     })
 
-    function handleClick() {
-        console.log("i am l");
-        console.log(data);
+    async function handleClick() {
+        const paste = {
+            content: data.content
+        }
+        const createRes = await userService.createPaste(paste);
+
+
+        if (createRes == true) {
+            console.log('Create a new paste');
+
+            return paste.content;
+        } else {
+            console.log('Create a paste failed');
+        }
     }
 
     function updateContentText(event) {
@@ -26,13 +38,18 @@ function CreatePaste(props){
 
     return (
         <div>
-            <textarea onChange={updateContentText}
-              name="content"
+            <TextField
+            name="content"
               placeholder="Paste here..."
-              rows="20"
-              
-            />
-            <button onClick={handleClick}>Create a Paste</button>
+            onChange={updateContentText}
+          id="content"
+          label="Multiline"
+          multiline
+          rows={20}
+          variant="outlined"
+        />
+
+            <Button color="primary" onClick={handleClick}>Create a Paste</Button>
         </div>
     );
 }
