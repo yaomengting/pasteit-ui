@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
+import { Button, Link } from '@material-ui/core'
+
+const userService = require('../services/user');
 
 
-function Register(){
+function Register() {
     const [data, setData] = useState({
-        username:"",
+        username: "",
         email: "",
         password: "",
         comfirmPassword: ""
     })
 
-    function handleClick() {
-        console.log("i am l");
-        console.log(data);
+    async function handleClick() {
+        
+        const user = {
+            username: data.username,
+            password: data.password,
+            email: data.email,
+            status: 'ACTIVE'
+        };
+        const createRes = await userService.createUser(user);
+        console.log("createRes: " + createRes);
+
+        if (createRes == true) {
+            
+            console.log('Created success');
+            
+            // to do: redirect to signin page;
+        } else {
+            console.log('Create failed');
+        }
     }
 
     function updateUserNameText(event) {
@@ -54,19 +73,19 @@ function Register(){
         });
     }
     return (
-        <div className="container"> 
+        <div className="container">
+            <form>
                 <input type="text" onChange={updateUserNameText} placeholder="Username" />
                 <input type="text" onChange={updateEmailText} placeholder="Email" />
                 <input type="password" onChange={updatePwdText} placeholder="Password" />
                 <input type="password" onChange={updateComfirmPwdText} placeholder="Confirm Password" />
-                <button onClick={handleClick} type="submit">Register</button>
-                <br />
-                <label>Already a user of Pasteit? -> </label>
-            <a href="./signin">Signin</a>
+                <Button onClick={handleClick} color="primary">Register</Button>
+            </form>
+            <br />
+            <label>Already a user of Pasteit? -> </label>
+            <Link color="inherit" href="./signin">Signin</Link>
         </div>
-    )
-    
-    ;
+    );
 }
 
 export default Register;
