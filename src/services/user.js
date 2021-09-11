@@ -6,9 +6,8 @@ async function createUser(user) {
     
   
     try{
-        
         const res = await axios.post(url, user);
-        console.log(res);
+        
         if(res.status == 201){
             return true;
         }
@@ -23,10 +22,10 @@ async function login(user){
     
     try{
         const res = await axios.post(url,user);
-        console.log('res:' + res);
+        
         if(res.status == 200){
             // to do: get token from res, headers->authorization, need to know the format through print it
-            token.set("");
+            //token.set("");
             return true;
         }
     }catch(error){

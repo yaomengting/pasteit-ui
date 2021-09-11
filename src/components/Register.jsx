@@ -22,7 +22,6 @@ function Register() {
         };
         const createRes = await userService.createUser(user);
         if (createRes == true) {
-            
             console.log('Created success');
             history.push("/signin");
         } else {
