@@ -1,47 +1,25 @@
-import React, { useState } from "react";
-import Paste from "./Paste";
+import React from "react";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Signin from "./Signin";
 import Register from "./Register";
 import Homepage from "./Homepage";
 import CreatePaste from "./CreatePaste";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import User from "./User";
+import ViewPaste from "./ViewPaste";
 
 function App() {
-  const [pastes,setPastes] = useState([]);
-
-  function addPaste(newPaste){
-    setPastes(prevPastes => {
-      return [...prevPastes, newPaste];
-    });
-  }
-
-  function deletePaste(id){
-    setPastes(prevPastes => {
-      return prevPastes.filter((pasteItem, index) => {
-        return index !== id;
-      });
-    });
-  }
     return (
         <Router>
           <div>
-          <CreatePaste onAdd={addPaste} />
-          {pastes.map((pasteItem, index) =>{
-            return(
-              <Paste 
-              key={index}
-              id={index}
-              content={pasteItem.content}
-              onDelete={deletePaste}
-              />
-
-            );
-          })}
+          <Route exact path="/">
+            <Redirect to='/homepage' />
+          </Route>
           <Route path="/homepage" component={Homepage} />
-          <Route path="/paste" component={Paste} />
+          <Route path="/paste/create" component={CreatePaste} />
           <Route path="/signin" component={Signin} />
           <Route path="/register" component={Register} />
+          <Route path="/user" component={User} />
+          <Route path="/paste/view" component={ViewPaste} />
           </div>
         </Router>
        
