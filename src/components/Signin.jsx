@@ -6,7 +6,7 @@ const userService = require('../services/user');
 function Signin() {
 
     const [data, setData] = useState({
-        email: "",
+        username: "",
         password: ""
     })
 
@@ -15,7 +15,7 @@ function Signin() {
     async function handleClick() {
         
         const user = {
-            email: data.email,
+            username: data.username,
             password: data.password
             
         };
@@ -24,25 +24,23 @@ function Signin() {
 
         if (signInRes == true) {
             console.log('Created success');
-            // to do:redirect to create paste page
-            return true;
+            history.push("/paste/create");
         } else {
             console.log('Create failed');
         }
-       return false;
     }
 
-    function updateEmailText(event) {
-        console.log('email:', event.target.value)
+    function updateUserName(event) {
+        console.log('username:', event.target.value);
         setData(prevPaste => {
             return {
                 ...prevPaste,
-                email: event.target.value
+                username: event.target.value
             };
         });
     }
 
-    function updatePwdText(event) {
+    function updatePassword(event) {
         console.log('pwd:', event.target.value);
         setData(prevPaste => {
             return {
@@ -54,8 +52,8 @@ function Signin() {
     return (
         <div className="container">
         <form>
-            <input type="text" onChange={updateEmailText} placeholder="Email" />
-            <input type="password" onChange={updatePwdText} placeholder="Password" />
+            <input type="text" onChange={updateUserName} placeholder="UserName" />
+            <input type="password" onChange={updatePassword} placeholder="Password" />
             <Button onClick={handleClick} color="primary">Signin</Button>
             </form>
             <br />
