@@ -1,37 +1,43 @@
+//import Userfront from "@userfront/react";
 const axios = require('axios');
 const token = require('./token');
 
 async function createUser(user) {
     const url = "http://localhost:8088/pasteit-services/v1/user";
-    
-  
-    try{
+    try {
+        const res = await axios.post(url, user);
+        if (res.status == 201) {
+            return true;
+        }
+    } catch (error) {
+        console.log(JSON.stringify(error));
+    }
+    return false;
+}
+
+async function login(user) {
+    const url = "http://localhost:8088/pasteit-services/login";
+
+    try {
         const res = await axios.post(url, user);
         
-        if(res.status == 201){
+        if (res.status === 200) {
+            const accessToken = "Bearer " + res.data.success.data.access_token;
+            localStorage.setItem('access_token', accessToken);
             return true;
         }
-    }catch(error){
+    } catch (error) {
         console.log(JSON.stringify(error));
     }
     return false;
 }
+module.exports = {createUser, login };
 
-async function login(user){
-    const url = "http://localhost:8088/pasteit-services/login";
-    
-    try{
-        const res = await axios.post(url,user);
-        
-        if(res.status == 200){
-            // to do: get token from res, headers->authorization, need to know the format through print it
-            //token.set("");
-            return true;
-        }
-    }catch(error){
-        console.log(JSON.stringify(error));
+(async () => {
+    return
+    const user = {
+        username: "lll",
+        password: "lll"
     }
-    return false;
-
-}
-module.exports  = {createUser, login};
+    await login(user);
+})()
