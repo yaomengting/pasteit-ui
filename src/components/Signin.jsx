@@ -20,13 +20,11 @@ function Signin() {
             
         };
         const signInRes = await userService.login(user);
-
-
         if (signInRes == true) {
-            console.log('Created success');
+            console.log('Sign in success');
             history.push("/paste/create");
         } else {
-            console.log('Create failed');
+            console.log('Sign in failed');
         }
     }
 
