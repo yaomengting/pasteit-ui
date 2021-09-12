@@ -13,12 +13,8 @@ function CreatePaste(props){
             content: data.content
         }
         const createRes = await userService.createPaste(paste);
-
-
         if (createRes == true) {
             console.log('Create a new paste');
-
-            return paste.content;
         } else {
             console.log('Create a paste failed');
         }
@@ -33,9 +29,6 @@ function CreatePaste(props){
             };
         });
     }
-    
-    
-
     return (
         <div>
             <TextField
