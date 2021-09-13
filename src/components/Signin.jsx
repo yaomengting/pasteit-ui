@@ -29,7 +29,7 @@ function Signin() {
     }
 
     function updateUserName(event) {
-        console.log('username:', event.target.value);
+        //console.log('username:', event.target.value);
         setData(prevPaste => {
             return {
                 ...prevPaste,
@@ -39,7 +39,7 @@ function Signin() {
     }
 
     function updatePassword(event) {
-        console.log('pwd:', event.target.value);
+        //console.log('pwd:', event.target.value);
         setData(prevPaste => {
             return {
                 ...prevPaste,

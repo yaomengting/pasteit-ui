@@ -1,27 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Button, TextField} from "@material-ui/core"
-const userService = require('../services/paste');
+import axios from "axios";
+import userService from '../services/paste';
+import ViewPaste from "./ViewPaste";
+
+
 
 function CreatePaste(props){
 
     const [data, setData] = useState({
         content:"",
     })
-
+  
     async function handleClick() {
         const paste = {
             content: data.content
         }
+         
         const createRes = await userService.createPaste(paste);
+        
         if (createRes == true) {
             console.log('Create a new paste');
+            window.location.href = "http://localhost:3000/paste/" + localStorage.getItem("unique_url");
+            localStorage.setItem("viewPaste", "true");
+            localStorage.setItem("pasteContent", data.content);
         } else {
             console.log('Create a paste failed');
         }
     }
 
+   
     function updateContentText(event) {
-        console.log('content', event.target.value)
         setData(prevPaste => {
             return {
                 ...prevPaste,
@@ -29,6 +38,7 @@ function CreatePaste(props){
             };
         });
     }
+    
     return (
         <div>
             <TextField
@@ -42,7 +52,8 @@ function CreatePaste(props){
           variant="outlined"
         />
 
-            <Button color="primary" onClick={handleClick}>Create a Paste</Button>
+            <Button color="primary" onClick={handleClick} >Create a Paste</Button>
+           <ViewPaste />;
         </div>
     );
 }

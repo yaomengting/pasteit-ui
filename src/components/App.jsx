@@ -8,6 +8,7 @@ import User from "./User";
 import ViewPaste from "./ViewPaste";
 
 function App() {
+  const url = localStorage.getItem("unique_url");
     return (
         <Router>
           <div>
@@ -19,7 +20,7 @@ function App() {
           <Route path="/signin" component={Signin} />
           <Route path="/register" component={Register} />
           <Route path="/user" component={User} />
-          <Route path="/paste/view" component={ViewPaste} />
+          <Route path="/paste/" component={ViewPaste} />
           </div>
         </Router>
        

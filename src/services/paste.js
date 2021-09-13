@@ -1,6 +1,4 @@
 const axios = require('axios');
-const token = require('./token');
-const url = require('./url');
 async function createPaste(paste) {
 
     const url = "http://localhost:8088/pasteit-services/v1/paste";
@@ -9,9 +7,10 @@ async function createPaste(paste) {
     }
     try {
         const res = await axios.post(url, paste, config);
-        console.log("res", res)
+        console.log("createpasteres", res)
         if (res.status == 201) {
             const uniqueUrl = res.data.success.data.paste.url;
+            console.log("uniqueUrl", uniqueUrl);
             localStorage.setItem('unique_url', uniqueUrl);
             return true;
         }
@@ -44,10 +43,10 @@ async function getAllPaste(userId) {
     return false;
     */
 }
-const pasteUrl = "http://localhost:8088/pasteit-services/v1/paste/" + localStorage.getItem('unique_url');
+const pasteUrl =  "http://localhost:8088/pasteit-services/v1/paste/" + localStorage.getItem('unique_url');
 async function getOnePaste(pasteUrl) {
     const config = {
-        headers: { 'Authorization': localStorage.getItem('access_token') }
+        headers: {'Authorization': localStorage.getItem('access_token') }
     }
     try {
         const res = await axios.get(pasteUrl, config);

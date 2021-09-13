@@ -1,11 +1,11 @@
-//import Userfront from "@userfront/react";
 const axios = require('axios');
-const token = require('./token');
 
 async function createUser(user) {
     const url = "http://localhost:8088/pasteit-services/v1/user";
     try {
         const res = await axios.post(url, user);
+        console.log("resgiter res: ");
+        console.log(res);
         if (res.status == 201) {
             return true;
         }
@@ -20,7 +20,7 @@ async function login(user) {
 
     try {
         const res = await axios.post(url, user);
-        
+        console.log("loginres", "res");
         if (res.status === 200) {
             const accessToken = "Bearer " + res.data.success.data.access_token;
             localStorage.setItem('access_token', accessToken);
