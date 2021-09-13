@@ -1,15 +1,14 @@
-import { TextField } from "@material-ui/core";
 import React from "react";
 
 
 
 
 
-function ViewPaste(props){
+function ViewPaste(){
     const content = localStorage.getItem("pasteContent");
-    
     return (
-        <div>
+        <div className="note">
+        <p>You can paste the content by copy the url</p>
         <h1>{content}</h1>
         </div>
 

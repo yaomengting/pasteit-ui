@@ -40,7 +40,7 @@ function CreatePaste(props){
     }
     
     return (
-        <div>
+        <div className="container">
             <TextField
             name="content"
               placeholder="Paste here..."
@@ -51,7 +51,6 @@ function CreatePaste(props){
           rows={20}
           variant="outlined"
         />
-
             <Button color="primary" onClick={handleClick} >Create a Paste</Button>
            <ViewPaste />;
         </div>

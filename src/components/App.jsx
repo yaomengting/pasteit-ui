@@ -6,12 +6,14 @@ import Homepage from "./Homepage";
 import CreatePaste from "./CreatePaste";
 import User from "./User";
 import ViewPaste from "./ViewPaste";
+import Header from "./Header";
 
 function App() {
   const url = localStorage.getItem("unique_url");
     return (
         <Router>
           <div>
+          <Header />
           <Route exact path="/">
             <Redirect to='/homepage' />
           </Route>
