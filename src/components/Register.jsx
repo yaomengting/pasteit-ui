@@ -6,7 +6,10 @@ const userService = require('../services/user');
 
 function Register() {
     const [data, setData] = useState({
+
         username: "",
+        firstname:"",
+        lastname: "",
         email: "",
         password: "",
         comfirmPassword: ""
@@ -18,6 +21,8 @@ function Register() {
             username: data.username,
             password: data.password,
             email: data.email,
+            firstname: data.firstname,
+            lastname: data.lastname,
             status: 'ACTIVE'
         };
         const createRes = await userService.createUser(user);
@@ -35,6 +40,26 @@ function Register() {
             return {
                 ...prevPaste,
                 username: event.target.value
+            };
+        });
+    }
+
+    function updateFirstNameText(event) {
+        console.log('firstname:', event.target.value)
+        setData(prevPaste => {
+            return {
+                ...prevPaste,
+                firstname: event.target.value
+            };
+        });
+    }
+
+    function updateLastNameText(event) {
+        console.log('lasttname:', event.target.value)
+        setData(prevPaste => {
+            return {
+                ...prevPaste,
+                lastname: event.target.value
             };
         });
     }
@@ -72,6 +97,8 @@ function Register() {
         <div className="container">
             <form>
                 <input type="text" onChange={updateUserNameText} placeholder="Username" />
+                <input type="text" onChange={updateFirstNameText} placeholder="Firstname" />
+                <input type="text" onChange={updateLastNameText} placeholder="Lastname" />
                 <input type="text" onChange={updateEmailText} placeholder="Email" />
                 <input type="password" onChange={updatePwdText} placeholder="Password" />
                 <input type="password" onChange={updateComfirmPwdText} placeholder="Confirm Password" />
